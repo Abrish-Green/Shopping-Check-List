@@ -34,7 +34,7 @@ export const itemsSelector = (state) => state.shop;
 export default itemSlice.reducer;
 
 const api = axios.create({
-  baseURL: "https://git.heroku.com/shopping-checklist-backend.git/",
+  baseURL: "https://shopping-checklist-server.herokuapp.com/",
   withCredentials: false,
   headers: {
     Accept: "application/json",

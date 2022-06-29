@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "interface": "npm start --prefix ../interface",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "app": "concurrently \"npm run dev\" \"npm run interface\"",
     "test": "echo \"Error: no test specified\" && exit 1"
