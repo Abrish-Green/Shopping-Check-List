@@ -3,10 +3,8 @@ import Container from './Components/Container/Index'
 import AddItem from './Components/Item/AddItem'
 import Item from './Components/Item/Index'
 import { useDispatch, useSelector } from 'react-redux';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { fetchAllItem, itemsSelector } from './Service/Features/Shop/ShopSlice';
 
-const queryClient = new QueryClient()
 
 export default function Index() {
   const [addItem, setAddItem] = React.useState(false);
