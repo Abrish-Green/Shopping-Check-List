@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProgressBar = ({ Name, Percent }) => {
+const ProgressBar = ({ Name, Amount }) => {
   return (
     <>
       <div className="relative pt-1 rounded-md">
@@ -12,7 +12,7 @@ const ProgressBar = ({ Name, Percent }) => {
             style={{ width: "10%" }}
             className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
           >
-            {Percent}
+            {Amount} ETB
           </div>
         </div>
       </div>
@@ -22,8 +22,8 @@ const ProgressBar = ({ Name, Percent }) => {
 const Index = ({ Bought, Total }) => {
   return (
     <>
-      <ProgressBar Name={"Bought Cost"} Percent={Bought} />
-      <ProgressBar Name={"Total Cost"} Percent={Total} />
+      <ProgressBar Name={"Bought Cost"} Amount={Bought} />
+      <ProgressBar Name={"Total Cost"} Amount={Total} />
     </>
   );
 };
