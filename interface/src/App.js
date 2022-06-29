@@ -22,10 +22,13 @@ export default function Index() {
     console.log(items.items)
   }, [dispatch, items, items])
   
-  data.map((item) => { 
+  if (data != null) { 
+    data.map((item) => { 
     total += item.item_cost;
     bought += item.item_bought ? item.item_cost : 0
   })
+  }
+  
   return (
     <>
       
