@@ -56,7 +56,7 @@ export function addItem(data) {
   };
 }
 // Edit all items
-export function editItem(data) {
+export function updateItem(data) {
   return async (dispatch) => {
     api
       .post("/item/edit", { ...data })

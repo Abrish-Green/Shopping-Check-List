@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteItem } from "../../Service/Features/Shop/ShopSlice";
+import { EditComponent } from "./EditComponent.jsx";
 
 const Index = ({ data }) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -15,7 +16,11 @@ const Index = ({ data }) => {
   const dispatch = useDispatch();
 
   if (edit) {
-    return <></>;
+    return (
+      <>
+        <EditComponent data={editData} />
+      </>
+    );
   }
   if (!edit) {
     return (
