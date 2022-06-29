@@ -1,20 +1,39 @@
 import React from "react";
-
-const Index = () => {
+import { useDispatch } from "react-redux";
+import { deleteItem } from "../../Service/Features/Shop/ShopSlice";
+const Index = ({ data }) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const dispatch = useDispatch();
   return (
     <>
-      <div className="m-4 w-4/5 h-auto bg-slate-100 border-l-4 border-l-red-700 flex-col rounded-md">
-        <div className="text-xl p-3">Name</div>
-        <div className="text-md p-3 px-5 border-t border-red-400">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis ex
-          enim veniam accusamus omnis, corrupti eum vero est praesentium,
-          suscipit sint culpa voluptate dicta obcaecati repudiandae atque
-          nesciunt. Quos, ducimus?
+      <div
+        className={`m-4 w-4/5 h-auto bg-slate-100 border-l-4 ${
+          data.item_bought ? "border-l-green-700" : "border-l-red-700"
+        }  flex-col rounded-md`}
+      >
+        <div className="text-xl w-full p-3 inline-flex justify-between">
+          <div>{data.item_name}</div>
+          <div className="border ml-10 text-sm rounded-md bg-green-400 p-2 ">
+            <label htmlFor="bought">Bought</label>
+            <input
+              id="bought"
+              type={"checkbox"}
+              className="ml-2 p-5 text-2xl accent-orange-600"
+              placeholder="Bought"
+            />
+          </div>
         </div>
-        <div className="text-md p-3 px-5 inline-flex gap-8">
-          <div className="italic text-gray-400">12:00 ago</div>
-          <div className="text-md font-extralight text-red-800">
-            <strong className="text-md text-green-700">Cost</strong> $12
+        <div className="text-md p-3 italic indet-2 px-6 border-t border-red-400">
+          {data.item_descripition}
+        </div>
+        <div className="text-md w-full px-5 grid">
+          <div className="text-md font-extralight text-red-800 flex-col">
+            <div className="px-2 font-extrabold text-lg">
+              Price ${data.item_cost}
+            </div>
+          </div>
+          <div className="italic px-2 text-gray-600">
+            {new Date(data.time_to_buy).toLocaleDateString(undefined, options)}
           </div>
         </div>
         <div className="text-md p-3 px-5 inline-flex gap-8">
@@ -24,7 +43,12 @@ const Index = () => {
             </button>
           </div>
           <div className="text-md text-black">
-            <button className="rounded-md text-md bg-red-500 px-4 py-2 hover:text-white">
+            <button
+              onClick={() => {
+                dispatch(deleteItem({ id: data._id }));
+              }}
+              className="rounded-md text-md bg-red-500 px-4 py-2 hover:text-white"
+            >
               Delete
             </button>
           </div>

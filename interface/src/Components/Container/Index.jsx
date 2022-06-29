@@ -9,7 +9,10 @@ const Index = (props) => {
             Shopping Check List
           </div>
           <div className="p-10 text-xl w-1/3 text-white font-bold">
-            <button className="rounded-md text-md bg-cyan-500 px-4 py-2 hover:text-white">
+            <button
+              onClick={() => props.setAddItem(true)}
+              className="rounded-md text-md bg-cyan-500 px-4 py-2 hover:text-white"
+            >
               Add Item
             </button>
           </div>

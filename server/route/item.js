@@ -1,20 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const Item = require('./item')
+const Item = require('../model/Item')
 
 //ADD
-router.get('/item/add',async (req, res) => {
+router.post('/item/add',async (req, res) => {
     
     try {
         const { item_name, time_to_buy, item_cost, item_descripition, item_bought } = req.body
-        if (!item_name || !time_to_buy || !item_cost ||  !item_descripition || !item_bought) { 
+        if (!item_name || !time_to_buy || !item_cost || !item_descripition) { 
             return res.status(202).json({
                  "error": "Incomplete Form"
              });
         }
         const newItem = new Item(req.body)
         await newItem.save(function(err,result){
-            if (err){
+            if (err) {
                 return res.status(202).json(err);
             }
             return res.status(200).json({
@@ -22,7 +22,7 @@ router.get('/item/add',async (req, res) => {
                 "item": result
             })
         })
-   }catch(e){
+    } catch (e) {
         return res.status(200).json({
             "status":202,
             "message": "Unable to Create an Item.Try Again later..." 
@@ -44,10 +44,13 @@ router.get('/item/edit/',async(req,res)=>{
     }
 })
 //DELETE
-router.get('/item/delete',async(req,res)=>{
+router.post('/item/delete',async(req,res)=>{
     try {
         const { id } = req.body
-        await Item.findOneAndDelete({ _id: id }).exec()
+        await Item.findOneAndDelete({ _id: id.id }, null, (err, doc) => {
+            console.log(doc,err)
+        }).exec()
+        
         return res.status(200).json({
             "status": 200,
             "message": 'Successfully Deleted'
@@ -70,7 +73,7 @@ router.get('/items',async(req,res)=>{
                 return res.status(200).json({
                     "status": 200,
                     "items": items,
-                    "message": 'Successfully Deleted'
+                    "message": 'Successfully Fetched'
                 })
         }).exec()
         

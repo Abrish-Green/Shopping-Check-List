@@ -12,7 +12,7 @@ app.use((req,res,next)=>{
   console.log(req.url)
   next()
 })
-app.use('/item',item)
+app.use('/',item)
 try{
   connectDB()
 }catch(err){
