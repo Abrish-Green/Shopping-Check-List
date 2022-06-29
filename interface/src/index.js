@@ -7,7 +7,7 @@ import { store } from './store'
 import axios from 'axios'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.baseURL = "http://localhost:4000/"
+axios.defaults.baseURL = "https://git.heroku.com/shopping-checklist-backend.git/"
 
 root.render(
    <Provider store={store}>

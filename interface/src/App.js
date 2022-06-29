@@ -4,7 +4,7 @@ import AddItem from './Components/Item/AddItem'
 import Item from './Components/Item/Index'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllItem, itemsSelector } from './Service/Features/Shop/ShopSlice';
-
+import CostProgressBar from './Components/Cost/Index'
 
 export default function Index() {
   const [addItem, setAddItem] = React.useState(false);
@@ -12,13 +12,20 @@ export default function Index() {
   const dispatch = useDispatch()
   const  {items}   = useSelector(itemsSelector)
   const [data, setData] = React.useState()
+
+  let bought = 0, total = 0;
   React.useMemo(() => {
       dispatch(fetchAllItem())
   },[data])
   React.useEffect(() => { 
     setData(items.items)
     console.log(items.items)
-  },[dispatch,items,items])
+  }, [dispatch, items, items])
+  
+  data.map((item) => { 
+    total += item.item_cost;
+    bought += item.item_bought ? item.item_cost : 0
+  })
   return (
     <>
       
@@ -27,7 +34,7 @@ export default function Index() {
         {data?.length > 0 && data.map((item,index) =>
           <Item data={item} key={index} />
         )} 
-       
+        <CostProgressBar Bought={bought} Total={total} />
         </Container>
     </>
   )
