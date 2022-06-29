@@ -30,10 +30,11 @@ router.post('/item/add',async (req, res) => {
    }
 })
 //EDIT
-router.get('/item/edit/',async(req,res)=>{
+router.post('/item/edit/',async(req,res)=>{
     try {
         const { id } = req.body
-        await Item.findOneAndUpdate({ _id: id }, {...req.body}).exec()
+        await Item.findOneAndUpdate({ _id: id }, { ...req.body }, null, (err, doc) => {
+        }).exec()
         return res.status(200).json({
             "status": 200,
             "message": 'Successfully Updated'
@@ -48,7 +49,7 @@ router.post('/item/delete',async(req,res)=>{
     try {
         const { id } = req.body
         await Item.findOneAndDelete({ _id: id.id }, null, (err, doc) => {
-            console.log(doc,err)
+            
         }).exec()
         
         return res.status(200).json({
