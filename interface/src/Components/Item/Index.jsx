@@ -6,6 +6,7 @@ import { EditComponent } from "./EditComponent.jsx";
 const Index = ({ data }) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
   const [editData, setEditData] = React.useState({
+    id: data._id,
     item_name: data.item_name,
     time_to_buy: data.time_to_buy,
     item_cost: data.item_cost,

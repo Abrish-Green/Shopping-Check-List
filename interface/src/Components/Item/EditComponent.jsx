@@ -1,8 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { updateItem } from "../../Service/Features/Shop/ShopSlice";
-
+import {
+  fetchAllItem,
+  updateItem,
+} from "../../Service/Features/Shop/ShopSlice";
+import Item from "./Index";
 export const EditComponent = ({ data }) => {
   const dispatch = useDispatch();
   const {
@@ -20,75 +23,81 @@ export const EditComponent = ({ data }) => {
   const [editData, setEditData] = React.useState({ ...data });
   const onSubmit = (data) => {
     dispatch(updateItem(watch()));
+    setOpen(false);
+    dispatch(fetchAllItem());
   };
 
+  if (!open) {
+    setTimeout(() => {
+      setOpen(!open);
+    }, 4000);
+    return (
+      <>
+        <Item data={watch()} key={"updated"} />
+      </>
+    );
+  }
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="m-4 w-4/5 h-auto bg-slate-300 border-l-4 text-black border-l-green-700 flex-col rounded-md">
-          <div className="text-xl p-3">
-            <input
-              className="w-2/3 p-2 m-2 border rounded-md"
-              placeholder="Name"
-              required
-              name="item_name"
-              {...register("item_name", { required: true })}
-            />
-            {errors.item_name && <span>This field is required</span>}
-          </div>
-          <div className="text-md p-3 px-5 border-t border-red-400">
-            <textarea
-              className="p-2 w-2/3 h-20 border rounded-lg"
-              placeholder="Descritiption"
-              name="item_descripition"
-              {...register("item_descripition", { required: true })}
-            ></textarea>
-            {errors.exampleRequired && <span>This field is required</span>}
-          </div>
-          <div className="text-md p-3 px-5 grid lg:inline-flex gap-2">
-            <div className="italic text-gray-400">
+      {open && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="m-4 w-4/5 h-auto bg-slate-300 border-l-4 text-black border-l-green-700 flex-col rounded-md">
+            <div className="text-xl p-3">
               <input
-                type="datetime-local"
-                className="w-3/4 p-2 m-1 border rounded-md"
-                placeholder="Time to Buy"
+                className="w-2/3 p-2 m-2 border rounded-md"
+                placeholder="Name"
                 required
-                name="time_to_buy"
-                {...register("time_to_buy", { required: true })}
+                name="item_name"
+                {...register("item_name", { required: true })}
               />
-              {errors.time_to_buy && <span>This field is required</span>}
+              {errors.item_name && <span>This field is required</span>}
             </div>
-            <div className="text-md font-extralight text-red-800">
-              <input
-                type="number"
-                className="w-2/4 p-2 m-2 border rounded-md"
-                placeholder="Cost"
-                required
-                name="item_cost"
-                {...register("item_cost", { required: true })}
-              />
+            <div className="text-md p-3 px-5 border-t border-red-400">
+              <textarea
+                className="p-2 w-2/3 h-20 border rounded-lg"
+                placeholder="Descritiption"
+                name="item_descripition"
+                {...register("item_descripition", { required: true })}
+              ></textarea>
               {errors.exampleRequired && <span>This field is required</span>}
             </div>
-          </div>
-          <div className="text-md p-3 px-10 grid md:inline-flex gap-5">
-            <div className="italic text-white">
-              <button
-                onSubmit={() => {}}
-                className="rounded-md text-md bg-green-400 px-6 py-2 hover:text-black"
-              >
-                Save
-              </button>
+            <div className="text-md p-3 px-5 grid lg:inline-flex gap-2">
+              <div className="italic text-gray-400">
+                <input
+                  type="datetime-local"
+                  className="w-3/4 p-2 m-1 border rounded-md"
+                  placeholder="Time to Buy"
+                  required
+                  name="time_to_buy"
+                  {...register("time_to_buy", { required: true })}
+                />
+                {errors.time_to_buy && <span>This field is required</span>}
+              </div>
+              <div className="text-md font-extralight text-red-800">
+                <input
+                  type="number"
+                  className="w-2/4 p-2 m-2 border rounded-md"
+                  placeholder="Cost"
+                  required
+                  name="item_cost"
+                  {...register("item_cost", { required: true })}
+                />
+                {errors.exampleRequired && <span>This field is required</span>}
+              </div>
             </div>
-            <div className="italic text-white">
-              <button
-                onClick={() => {}}
-                className="rounded-md text-md bg-red-400 px-6 py-2 hover:text-black"
-              >
-                close
-              </button>
+            <div className="text-md p-3 px-10 grid">
+              <div className="italic text-white">
+                <button
+                  onSubmit={() => {}}
+                  className="rounded-md text-md bg-green-400 px-6 py-2 hover:text-black"
+                >
+                  Update
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      )}
     </>
   );
 };
