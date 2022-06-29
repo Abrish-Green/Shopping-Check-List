@@ -19,7 +19,6 @@ export default function Index() {
   },[data])
   React.useEffect(() => { 
     setData(items.items)
-    console.log(items.items)
   }, [dispatch, items, items])
   
   if (data != null) { 
