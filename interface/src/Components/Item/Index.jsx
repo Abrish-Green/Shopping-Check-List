@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteItem } from "../../Service/Features/Shop/ShopSlice";
+import { deleteItem, updateItem } from "../../Service/Features/Shop/ShopSlice";
 import { EditComponent } from "./EditComponent.jsx";
 
 const Index = ({ data }) => {
@@ -37,7 +37,11 @@ const Index = ({ data }) => {
               <label htmlFor="bought">Bought</label>
               <input
                 id="bought"
+                onClick={(e) => {
+                  dispatch(updateItem({ item_bought: e.target.value }));
+                }}
                 type={"checkbox"}
+                checked={data.item_bought ? "checked" : ""}
                 className="ml-2 p-5 text-2xl accent-orange-600"
                 placeholder="Bought"
               />
