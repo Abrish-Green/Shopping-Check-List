@@ -37,8 +37,7 @@ const api = axios.create({
   baseURL: "https://shopping-checklist-server.herokuapp.com/",
   withCredentials: false,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    "Content-Type": "application/json; charset=UTF-8",
   },
 });
 
